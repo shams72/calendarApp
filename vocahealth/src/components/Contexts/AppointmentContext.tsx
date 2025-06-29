@@ -51,13 +51,12 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
         const uniqueCategories = [...new Map(data.map((event) => [event.category.id, event.category])).values(),];
 
         const colorCodedAppointments = data.map((appt) => ({ ...appt, color: appt.category.color, }));
-
         const sortedPatients = response.allPatients.sort((a:Patient, b:Patient) =>
-        a.firstname.localeCompare(b.firstname)
-      );
+        a.firstname.localeCompare(b.firstname)      );
 
         setPatients(sortedPatients);      
         setCategories(uniqueCategories);
+
         setEvents(colorCodedAppointments);
         setCurrentEvents(colorCodedAppointments)
       } catch (error) {
@@ -85,7 +84,6 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
 
   const addAppointment = async (data:FormSchema) => {
 
-    console.log(data);
 
     const response = await fetch('/api/appointments', {
       method: 'POST',

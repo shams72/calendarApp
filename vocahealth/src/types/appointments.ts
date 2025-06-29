@@ -31,6 +31,7 @@ export interface Appointments {
   category: Category;          
   notes: string;
   title: string;
+  allDay?:boolean;
   color?: Category['color'];
 }
 

@@ -51,7 +51,7 @@ export const PatientFilter = ({ value, onChange,sort=false, setPatient}: Patient
         {patients.map((item) => (
           <SelectItem key={item.id} value={item.id}>
             <div className="flex items-center gap-2">
-              {item.firstname} |  {item.lastname}
+              {item.firstname} {item.lastname}
             </div>
           </SelectItem>
         ))}

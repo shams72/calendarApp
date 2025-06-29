@@ -15,7 +15,19 @@ interface ViewAppointmentProps {
 export function ViewAppointment({ setAppointmentView, clickedDate, setEditView,setAppointment }: ViewAppointmentProps) {
   const { events } = useAppointment()
 
-  const viewAppointments = events.filter(  (event) => event.start?.slice(0, 10) === clickedDate)
+  const viewAppointments = events.filter((event) => {
+    if (!clickedDate || !event.start || !event.end) return false;
+
+    const clicked = new Date(clickedDate);
+    const start = new Date(event.start);
+    const end = new Date(event.end);
+
+    clicked.setHours(0, 0, 0, 0);
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+
+    return clicked >= start && clicked <= end;
+  });
 
   return (
     <>

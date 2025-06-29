@@ -19,16 +19,24 @@ export const CalendarWrapper = ({ onDateClick, events,setDialogOpen }: CalendarW
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         nowIndicator
+        locale="de" 
         headerToolbar={{
-          left: 'prev,next',
+          right: 'today prev,next',
           center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay',
+          left: 'dayGridMonth,timeGridWeek',
+        }}
+        buttonText={{
+          today: 'Heute',
+          month: 'Monat',
+          week: 'Woche',
+          day: 'Tag',
         }}
         eventTimeFormat={{
           hour: 'numeric',
           minute: '2-digit',
           meridiem: 'short'  
         }}
+        allDaySlot={false}
         selectable
         height="95vh"
         events={events}

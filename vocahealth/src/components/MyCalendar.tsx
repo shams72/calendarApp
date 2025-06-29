@@ -19,7 +19,7 @@ const MyCalendar: React.FC = () => {
     <div  className="flex flex-row items-start w-full gap-8">
       <div className="relative w-[76%] h-[70vh] ml-[30px] mt-[10px]">
         <CalendarWrapper  onDateClick={setSelectedDate} events={currentEvents} setDialogOpen={setDialogOpen}/>
-        <div style={{ position: 'absolute', top: 0, left: 120 , width:"10rem"}} >
+        <div style={{ position: 'absolute', top: 3, left: 160 , width:"10rem"}} >
           <CalendarFilter />
         </div>
        

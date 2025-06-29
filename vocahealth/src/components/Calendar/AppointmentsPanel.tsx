@@ -28,9 +28,9 @@ export const AppointmentsPanel = () => {
    
       <Collapsible open={open} onOpenChange={setOpen}>
         <CollapsibleTrigger asChild>
-          <Button className="w-70">Termine für heute</Button>
+          <Button className="w-75">Termine für heute</Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="mt-2 rounded-lg border p-4 shadow-sm bg-white min-h-5 max-h-140 w-70 overflow-y-scroll scrollbar-hide">
+        <CollapsibleContent className="mt-2 rounded-lg border p-4 shadow-sm bg-white min-h-5 max-h-140 w-75 overflow-y-scroll scrollbar-hide">
           {todayEvent.length > 0 ? (
               todayEvent.map((event) => (
                 <EventCard key={event.id} event={event} badge={false}  />
