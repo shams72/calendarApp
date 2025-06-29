@@ -23,6 +23,7 @@ interface AppointmentContextType {
   deleteAppointment: (id: string) => void;
   addAppointment: (data:FormSchema) => void;
   editAppointment: (data:UpdateSchema) => void;
+  fetchAppointments: (start:string, end:string) => void;
   patients: Patient[];
 }
 
@@ -40,10 +41,10 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
   const [currentEvents, setCurrentEvents] = useState<Appointments[]>([]);
   const [patients, setPatients] = useState<Patient[]>([])
 
-  useEffect(() => {
-    async function fetchAppointments() {
-      try {
-        const res = await fetch('/api/appointments');
+  async function fetchAppointments(start:string, end:string) {
+    try {
+
+        const res = await fetch(`/api/appointments?start=${start}&end=${end}`);
         if (!res.ok) throw new Error('Failed to fetch appointments');
         const response = await res.json();
         const data: Appointments[] = response.appointments;
@@ -62,9 +63,19 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
       } catch (error) {
         console.error('Error loading appointments:', error);
       }
-    }
+  }  
 
-    fetchAppointments();
+  useEffect(() => {
+    const today = new Date();
+    today.setDate(1); 
+    today.setHours(0, 0, 0, 0); 
+    const startOfMonth = today.toISOString();
+
+    const end = new Date(today);
+    end.setDate(today.getDate() + 60);
+    end.setHours(23, 59, 59, 999); 
+    const endDate = end.toISOString(); 
+    fetchAppointments(startOfMonth,endDate);
   }, []);
 
   const deleteAppointment = async (id: string) => {
@@ -167,10 +178,8 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
             event.id === updatedEvent.id ? { ...event, ...updatedEvent } : event
           )
         ); 
-
       } else {
         setCurrentEvents((prev) =>  prev.filter((event) => event.id !== oldEvent!.id));
-
       }
 
     }
@@ -178,7 +187,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
 
   return (
     <AppointmentContext.Provider
-      value={{ patients,categories,  currentEvents, setCategories, setCurrentEvents, events, setEvents, deleteAppointment, addAppointment,editAppointment}}
+      value={{ patients,categories,  currentEvents, setCategories, setCurrentEvents, events, setEvents, deleteAppointment, addAppointment,editAppointment, fetchAppointments}}
     >
       {children}
     </AppointmentContext.Provider>
