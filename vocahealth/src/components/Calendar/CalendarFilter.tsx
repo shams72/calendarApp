@@ -11,6 +11,7 @@ import { useAppointment } from "../Contexts/AppointmentContext";
 
 
 interface CalendarFilterProps {
+  formView?: boolean;
   value?: string;
   onChange?: (value: string) => void;
   editView?: boolean;
@@ -18,7 +19,7 @@ interface CalendarFilterProps {
   setCategory?: (value: string) => void;
 }
 
-export const CalendarFilter = ({ value, onChange, editView = false,setCategory, patient }: CalendarFilterProps) => {
+export const CalendarFilter = ({ value, onChange, editView = false,setCategory, patient, formView=true }: CalendarFilterProps) => {
   const { categories, events, setCurrentEvents } = useAppointment();
 
   const handleChange = (selected: string) => {
@@ -59,7 +60,7 @@ export const CalendarFilter = ({ value, onChange, editView = false,setCategory, 
         <SelectValue placeholder="Kategorie auswählen" />
       </SelectTrigger>
       <SelectContent>
-        {!editView && <SelectItem value="all">Alle Kategorien</SelectItem>}
+        {(!editView && formView) && <SelectItem value="all">Alle Kategorien</SelectItem>}
         {categories.map((item) => (
           <SelectItem key={item.id} value={item.id}>
             <div className="flex items-center gap-2">

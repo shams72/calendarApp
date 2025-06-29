@@ -22,7 +22,7 @@ const MyCalendar: React.FC = () => {
       <div className="relative w-[79%] h-[70vh] ml-[30px] mt-[10px]">
         <CalendarWrapper  onDateClick={setSelectedDate} events={currentEvents} setDialogOpen={setDialogOpen}/>
         <div style={{ position: 'absolute', top: 2, left: 159 , width:"10rem"}} >
-          <CalendarFilter setCategory={setCategory} patient={patient}/>
+          <CalendarFilter setCategory={setCategory} patient={patient} />
         </div>
         <div style={{ position: 'absolute', top: 2, left: 325 , width:"10rem"}} >
            <PatientSelector setPatient={setPatient} category={category}/>

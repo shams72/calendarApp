@@ -123,6 +123,7 @@ export function ManageAppointments({setAppointmentView, setAppointment, appointm
                       value={field.value}
                       onChange={field.onChange}
                       editView={editView}
+                      formView={false}
                     />
                   </FormControl>
                   <FormMessage />

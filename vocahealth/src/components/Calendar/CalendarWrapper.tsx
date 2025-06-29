@@ -30,7 +30,8 @@ export const CalendarWrapper = ({ onDateClick, events,setDialogOpen }: CalendarW
     endOfMonth.setDate(0);  
     endOfMonth.setHours(23, 59, 59, 999); 
     
-    endOfMonth.setDate(endOfMonth.getDate() + 15);
+    endOfMonth.setDate(endOfMonth.getDate() + 65);
+    startOfMonth.setDate(startOfMonth.getDate()-15); 
     
     const startDate = startOfMonth.toISOString();
     const endDate = endOfMonth.toISOString();
