@@ -14,10 +14,11 @@ interface CalendarFilterProps {
   value?: string;
   onChange?: (value: string) => void;
   editView?: boolean;
-  category?: string;
+  patient?: string;
+  setCategory?: (value: string) => void;
 }
 
-export const CalendarFilter = ({ value, onChange, editView = false }: CalendarFilterProps) => {
+export const CalendarFilter = ({ value, onChange, editView = false,setCategory, patient }: CalendarFilterProps) => {
   const { categories, events, setCurrentEvents } = useAppointment();
 
   const handleChange = (selected: string) => {
@@ -28,15 +29,27 @@ export const CalendarFilter = ({ value, onChange, editView = false }: CalendarFi
     }
 
     if (!editView) {
-      if (selected === 'all') {
-      
-        setCurrentEvents(events);
+      if(selected === "all") {
+        if(patient !== "all") {
+            const filtered = events.filter((event) => event.patient.id === patient);
+            setCurrentEvents(filtered);
+        }else {
+            setCurrentEvents(events);
+        }
 
-      } else {
-        const filtered = events.filter((event) => event.category.id === selected);
-      
-        setCurrentEvents(filtered);
-      }
+    } else {
+        const filteredPatients = events.filter((event) => event.category.id === selected);
+        if(patient !== "all") {
+            const filtered = filteredPatients.filter((event) => event.patient.id === patient);
+            setCurrentEvents(filtered);
+        }
+        else {
+            setCurrentEvents(filteredPatients);
+        }
+
+    }
+    
+    setCategory!(selected)
     }
   };
 
@@ -46,7 +59,7 @@ export const CalendarFilter = ({ value, onChange, editView = false }: CalendarFi
         <SelectValue placeholder="Kategorie auswählen" />
       </SelectTrigger>
       <SelectContent>
-        {!editView && <SelectItem value="all">All</SelectItem>}
+        {!editView && <SelectItem value="all">Alle Kategorien</SelectItem>}
         {categories.map((item) => (
           <SelectItem key={item.id} value={item.id}>
             <div className="flex items-center gap-2">
