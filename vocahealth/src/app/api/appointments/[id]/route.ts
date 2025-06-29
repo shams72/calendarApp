@@ -1,9 +1,10 @@
 import { supabase } from '@/lib/SupabaseClient'
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function DELETE(  req: NextRequest,  { params }: { params: { id: string } }
+export async function DELETE(  req: NextRequest,  context: { params: Promise<{ id: string }>  }
 ) {
-  const id = params.id;
+    const { id } = await context.params;
+
 
   await supabase.from('activities').delete().eq('appointment', id);
   await supabase.from('appointment_assignee').delete().eq('appointment', id);
