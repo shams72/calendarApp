@@ -28,8 +28,8 @@ export const AppointmentsPanel = () => {
     </div>
     
     
-      <Card className="shadow-sm pr-0 pl-0 pt-2.5 pb-0 mt-4">
-        <CardContent className="p-0 pr-2 pl-2">
+      <Card className="shadow-sm pr-0 pl-0 pt-2.5 pb-0 mt-4 h-[80vh] ">
+        <CardContent className="p-0 pr-2 pl-2 overflow-y-scroll scrollbar-hide">
           {todayEvent.length > 0 ? (
             <div className="space-y-4">
               {todayEvent.map((event) => (
@@ -37,6 +37,7 @@ export const AppointmentsPanel = () => {
                   key={event.id}
                   event={event}
                   badge={false}
+                  notes={false}
                 />
               ))}
             </div>

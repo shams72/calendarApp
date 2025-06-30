@@ -24,7 +24,6 @@ export const CalendarWrapper = ({ onDateClick, events,setDialogOpen }: CalendarW
 
     const startOfMonth = dateInfo.view.currentStart;
 
-
     const endOfMonth = new Date(startOfMonth);
     endOfMonth.setMonth(startOfMonth.getMonth() + 1);  
     endOfMonth.setDate(0);  

@@ -9,7 +9,8 @@ import { Patient,AppointmentData } from '@/types/appointments';
 import { CalendarDays, Clock, MapPin } from "lucide-react"; // shadcn uses lucide icons
 import { User } from "lucide-react";
 import { Tag } from "lucide-react";
-import { Edit2, Trash2, Info } from "lucide-react";
+import { Edit2, Trash2} from "lucide-react";
+import { AlertCircle } from "lucide-react";
 
 
 interface Appointments {
@@ -31,6 +32,7 @@ interface Appointments {
 interface EventCardProps {
   event:Appointments;
   badge: boolean;
+  notes?: boolean;
   setEditMode?: (open: boolean) => void;
   disabled?:boolean;
   setAppointmentView?: (open: boolean) => void;
@@ -38,7 +40,7 @@ interface EventCardProps {
 }
 
 
-const EventCard: React.FC<EventCardProps> = ({ event, badge, setEditMode, setAppointmentView, setAppointmentData, disabled=false}) => {
+const EventCard: React.FC<EventCardProps> = ({ event, badge, setEditMode, setAppointmentView, setAppointmentData,notes=true, disabled=false}) => {
   
   const {deleteAppointment} = useAppointment()
   
@@ -72,8 +74,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, badge, setEditMode, setApp
   return (
     <>  
     <Card key={event.id}  className={`relative mt-0 mb-3 ${disabledClass}`}>
-      {badge && <div className='absolute left-85 top-2'>
-        <Button variant="ghost" size="icon" title={event.notes} className="hover:bg-muted">  <Info className="w-5 h-5" /> </Button>
+      {badge && <div className='absolute right-5 top-2'>
         <Button variant="ghost" size="icon" title="Edit" className="hover:bg-muted" onClick={() => {setEditMode?.(true); setAppointmentView?.(true);setAppointmentData?.(selectedEvent)}}>  <Edit2 className="w-5 h-5" />   </Button>
         <Button variant="ghost" size="icon" title="Delete" className="text-red-500 hover:bg-red-100" onClick={() => deleteAppointment(event.id)}> <Trash2 className="w-5 h-5" /> </Button>
       </div>}
@@ -109,6 +110,13 @@ const EventCard: React.FC<EventCardProps> = ({ event, badge, setEditMode, setApp
           <div className="text-xs text-muted-foreground truncate flex items-center gap-1">
             <MapPin className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
             {event.location}
+          </div>
+        )}
+
+        {event.notes && notes && (
+          <div className="text-xs text-muted-foreground truncate flex items-center gap-1">
+            <AlertCircle className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
+            {event.notes}
           </div>
         )}
       </div>

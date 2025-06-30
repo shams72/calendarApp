@@ -4,6 +4,7 @@ import React from 'react';
 import {  DialogHeader, DialogTitle} from '@/components/ui/dialog';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -24,19 +25,25 @@ interface ManageAppointmentProps {
   setAppointment:(data: AppointmentData | null)=>void;
 }
 
-const formSchema = z.object({
-  patient: z.string().min(1, "Patientenname ist erforderlich"),
-  eventTitle: z.string().min(1, "Titel des Termins ist erforderlich"),
-  category: z.string().min(1, "Kategorie ist erforderlich"),
-  location: z.string().min(1, "Ort ist erforderlich"),
-  start: z.date({
-    required_error: "Startdatum ist erforderlich"
-  }),
-  end: z.date({
-    required_error: "Enddatum ist erforderlich"
-  }),
-  notes: z.string().optional(),
-});
+const formSchema = z
+  .object({
+    patient: z.string().min(1, "Patientenname ist erforderlich"),
+    eventTitle: z.string().min(1, "Titel des Termins ist erforderlich"),
+    category: z.string().min(1, "Kategorie ist erforderlich"),
+    location: z.string().min(1, "Ort ist erforderlich"),
+    start: z.date({
+      required_error: "Startdatum ist erforderlich",
+    }),
+    end: z.date({
+      required_error: "Enddatum ist erforderlich",
+    }),
+    notes: z.string().optional(),
+  })
+  .refine((data) => data.end > data.start, {
+    message: "Enddatum muss nach dem Startdatum liegen",
+    path: ["end"], // this targets the error message to the "end" field
+  });
+
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -56,6 +63,8 @@ export function ManageAppointments({setAppointmentView, setAppointment, appointm
   });
   
   const {addAppointment, editAppointment}=useAppointment()
+
+  
 
   const onSubmit = async(data: FormValues) => {
     setAppointmentView(false);
@@ -152,6 +161,9 @@ export function ManageAppointments({setAppointmentView, setAppointment, appointm
                 const selectedDate = field.value;
                 const now = new Date();
 
+                const midnight = new Date(now);
+                midnight.setHours(0, 0, 0, 0);
+
                 return (
                   <FormItem>
                     <FormLabel>Start Datum</FormLabel>
@@ -208,7 +220,7 @@ export function ManageAppointments({setAppointmentView, setAppointment, appointm
                 <FormItem>
                   <FormLabel>Notizen</FormLabel>
                   <FormControl>
-                    <Input placeholder="Notizen" {...field} />
+                    <Textarea placeholder="Notizen" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
