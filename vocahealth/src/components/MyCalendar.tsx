@@ -21,15 +21,10 @@ const MyCalendar: React.FC = () => {
     <div  className="flex flex-row items-start w-full gap-5">
       <div className="relative w-[79%] h-[70vh] ml-[30px] mt-[10px]">
         <CalendarWrapper  onDateClick={setSelectedDate} events={currentEvents} setDialogOpen={setDialogOpen}/>
-        <div style={{ position: 'absolute', top: 2, left: 159 , width:"10rem"}} >
+       <div className="absolute top-[2px] left-0 w-[10rem] flex flex-row gap-2">
           <CalendarFilter setCategory={setCategory} patient={patient} />
-        </div>
-        <div style={{ position: 'absolute', top: 2, left: 325 , width:"10rem"}} >
-           <PatientSelector setPatient={setPatient} category={category}/>
-           
-        </div>
-          <div style={{ position: 'absolute', top: 2, left:  950 , width:"10rem"}} >
-           <HelpDropdown/>
+          <PatientSelector setPatient={setPatient} category={category}/>
+          <HelpDropdown/>
         </div>
        
       </div> 

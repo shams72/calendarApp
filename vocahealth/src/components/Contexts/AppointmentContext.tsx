@@ -17,7 +17,9 @@ interface AppointmentContextType {
   categories: Category[];
   setCategories: (categories: Category[]) => void;
   events: Appointments[];
+  todayEvents: Appointments[];
   setEvents: (events: Appointments[]) => void;
+  setTodayEvents: (events: Appointments[]) => void;
   currentEvents: Appointments[];
   setCurrentEvents: (events: Appointments[]) => void;
   deleteAppointment: (id: string) => void;
@@ -38,6 +40,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
 }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [events, setEvents] = useState<Appointments[]>([]);
+  const [todayEvents, setTodayEvents] = useState<Appointments[]>([]);
   const [currentEvents, setCurrentEvents] = useState<Appointments[]>([]);
   const [patients, setPatients] = useState<Patient[]>([])
 
@@ -58,6 +61,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
         setPatients(sortedPatients);      
         setCategories(uniqueCategories);
 
+      
         setEvents(colorCodedAppointments);
         setCurrentEvents(colorCodedAppointments)
       } catch (error) {
@@ -76,6 +80,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
     end.setHours(23, 59, 59, 999); 
     const endDate = end.toISOString(); 
     fetchAppointments(startOfMonth,endDate);
+  
   }, []);
 
   const deleteAppointment = async (id: string) => {
@@ -187,7 +192,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
 
   return (
     <AppointmentContext.Provider
-      value={{ patients,categories,  currentEvents, setCategories, setCurrentEvents, events, setEvents, deleteAppointment, addAppointment,editAppointment, fetchAppointments}}
+      value={{ patients,categories,  currentEvents, setCategories, setCurrentEvents, events, setEvents, deleteAppointment, addAppointment,editAppointment, fetchAppointments, todayEvents, setTodayEvents}}
     >
       {children}
     </AppointmentContext.Provider>

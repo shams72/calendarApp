@@ -47,9 +47,9 @@ export const CalendarWrapper = ({ onDateClick, events,setDialogOpen }: CalendarW
         nowIndicator
         locale="de" 
         headerToolbar={{
-          right: 'today prev,next',
+          right: 'today dayGridMonth,timeGridWeek prev,next',
           center: 'title',
-          left: 'dayGridMonth,timeGridWeek',
+          left: '',
         }}
         datesSet={handleNavigate}
         buttonText={{

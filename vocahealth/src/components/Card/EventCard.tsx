@@ -73,12 +73,12 @@ const EventCard: React.FC<EventCardProps> = ({ event, badge, setEditMode, setApp
 
   return (
     <>  
-    <Card key={event.id}  className={`relative mt-0 mb-3 ${disabledClass}`}>
+    <Card key={event.id}  className={`relative mt-0 mb-3`}>
       {badge && <div className='absolute right-5 top-2'>
         <Button variant="ghost" size="icon" title="Edit" className="hover:bg-muted" onClick={() => {setEditMode?.(true); setAppointmentView?.(true);setAppointmentData?.(selectedEvent)}}>  <Edit2 className="w-5 h-5" />   </Button>
         <Button variant="ghost" size="icon" title="Delete" className="text-red-500 hover:bg-red-100" onClick={() => deleteAppointment(event.id)}> <Trash2 className="w-5 h-5" /> </Button>
       </div>}
-      <CardContent className="flex gap-4 py-2 px-5 items-center mt-0 min-w-0">
+      <CardContent className={` gap-4 py-2 px-5 items-center mt-0 min-w-0 ${disabledClass}`}>
       
         <div
           className="w-3 h-3 rounded-full flex-shrink-0"
