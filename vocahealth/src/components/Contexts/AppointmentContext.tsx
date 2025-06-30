@@ -59,9 +59,7 @@ export const AppointmentProvider: React.FC<AppointmentProviderProps> = ({
         a.firstname.localeCompare(b.firstname)      );
 
         setPatients(sortedPatients);      
-        setCategories(uniqueCategories);
-
-      
+        setCategories(uniqueCategories);      
         setEvents(colorCodedAppointments);
         setCurrentEvents(colorCodedAppointments)
       } catch (error) {
