@@ -1,4 +1,4 @@
-# VocaRE Health
+# Vocare Health
 
 ## Getting Started
 
