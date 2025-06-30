@@ -7,7 +7,7 @@ import { AppointmentsPanel } from './Calendar/AppointmentsPanel';
 import { CalendarWrapper } from './Calendar/CalendarWrapper';
 import { useAppointment } from './Contexts/AppointmentContext';
 import { PatientSelector } from './Calendar/PatientSelector';
-
+import HelpDropdown from './HelpDropDown';
 const MyCalendar: React.FC = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | undefined>(undefined);
@@ -26,9 +26,12 @@ const MyCalendar: React.FC = () => {
         </div>
         <div style={{ position: 'absolute', top: 2, left: 325 , width:"10rem"}} >
            <PatientSelector setPatient={setPatient} category={category}/>
+           
+        </div>
+          <div style={{ position: 'absolute', top: 2, left:  950 , width:"10rem"}} >
+           <HelpDropdown/>
         </div>
        
-        
       </div> 
       <div className="flex flex-col mt-[50px]">
         <AppointmentsPanel/>

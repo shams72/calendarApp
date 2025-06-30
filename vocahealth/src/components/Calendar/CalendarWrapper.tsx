@@ -63,7 +63,7 @@ export const CalendarWrapper = ({ onDateClick, events,setDialogOpen }: CalendarW
           minute: '2-digit',
           meridiem: 'short'  
         }}
-        
+                
         allDaySlot={false}
         selectable
         height="95vh"
